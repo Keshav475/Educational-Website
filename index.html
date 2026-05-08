@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Ridge School</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Root theme colors */
+    :root {
+      --bg: #f4f9ff;
+      --surface: #ffffff;
+      --primary: #0d6efd;
+      --primary-soft: #eaf2ff;
+      --text: #1f2937;
+      --text-soft: #4b5563;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .dark {
+      --bg: #0f172a;
+      --surface: #111827;
+      --primary: #3b82f6;
+      --primary-soft: rgba(59, 130, 246, 0.13);
+      --text: #e2e8f0;
+      --text-soft: #94a3b8;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .brand i {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: var(--text-soft);
+      transition: color 0.25s ease;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--primary);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .nav-button,
+    .action-btn {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .nav-button:hover,
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(13, 110, 253, 0.25);
+    }
+
+    .hero {
+      padding: 4rem 0 2rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      margin: 0 0 1rem;
+    }
+
+    .hero-text p {
+      max-width: 42rem;
+      color: var(--text-soft);
+    }
+
+    .hero-text .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .hero-image {
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13, 110, 253,0.16), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 360px;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card,
+    .testimonial,
+    .counter-card {
+      background: var(--surface);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover,
+    .testimonial:hover,
+    .counter-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.16);
+    }
+
+    .card h3,
+    .testimonial h4 {
+      margin-top: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p,
+    .testimonial p,
+    .about-text p {
+      color: var(--text-soft);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      color: var(--text-soft);
+    }
+
+    .about-list li i {
+      color: var(--primary);
+      margin-top: 0.25rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .counter {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery figure {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      margin: 0;
+    }
+
+    .gallery figcaption {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      color: #fff;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.45));
+      font-weight: 600;
+    }
+
+    .testimonials,
+    .gallery,
+    .contact-grid {
+      gap: 1.5rem;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .testimonial {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .testimonial .stars {
+      color: #f59e0b;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.9rem;
+      background: var(--bg);
+      color: var(--text);
+      resize: vertical;
+    }
+
+    .contact-form textarea {
+      min-height: 150px;
+    }
+
+    .contact-info {
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      background: var(--primary-soft);
+      color: var(--text);
+    }
+
+    .contact-info h3 {
+      margin-top: 0;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: var(--text);
+      font-size: 1.25rem;
+    }
+
+    footer {
+      padding: 2rem 0 1rem;
+      text-align: center;
+      color: var(--text-soft);
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.3rem;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .slider {
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      padding: 3rem;
+      color: #fff;
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(13, 110, 253,0.95), rgba(59, 130, 246,0.85));
+    }
+
+    .slide h3 {
+      margin: 0 0 1rem;
+      font-size: 2rem;
+    }
+
+    .slide p {
+      max-width: 32rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .about-grid,
+      .testimonials,
+      .contact-grid,
+      .gallery,
+      .stats,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 2.5rem;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 1rem;
+        width: 240px;
+        border-radius: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-1rem);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-links li {
+        margin-bottom: 0.75rem;
+      }
+
+      .mobile-menu {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-image {
+        min-height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+        <i class="fas fa-school"></i>
+        <span>Blue Ridge Academy</span>
+      </a>
+      <button class="mobile-menu" id="menuToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <button class="nav-button" id="themeToggle" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero section" id="home">
+      <div class="hero-text">
+        <span class="hero-badge"><i class="fas fa-globe"></i> Inspiring Future Leaders</span>
+        <h1>Learn, Create, and Grow at Blue Ridge Academy</h1>
+        <p>Welcome to a modern school website designed for students, parents, and teachers. Explore classes, achievements, testimonials, and experience a friendly learning community.</p>
+        <div class="hero-actions">
+          <a href="courses.html" class="action-btn">Explore More</a>
+          <a href="contact.html" class="action-btn">Join Today</a>
+        </div>
+        <div class="slider" aria-label="Animated text slider">
+          <div class="slider-track" id="sliderTrack">
+            <div class="slide"><h3>Creative Learning</h3><p>Building strong skills through hands-on projects and supportive teachers.</p></div>
+            <div class="slide"><h3>Smart Classes</h3><p>Modern classrooms, technology tools, and study clubs to help every student shine.</p></div>
+            <div class="slide"><h3>Bright Future</h3><p>Guidance, mentorship, and inspiring events that prepare students for success.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="School students working together" />
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-title">
+        <span>01</span>
+        <h2>About Our School</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Blue Ridge Academy is a student-first school where creativity, curiosity, and kindness matter most. Our mission is to deliver modern education, strong character development, and safe, welcoming spaces for all learners.</p>
+          <ul class="about-list">
+            <li><i class="fas fa-bullseye"></i> Mission: Empower students with skills, confidence, and collaboration.</li>
+            <li><i class="fas fa-eye"></i> Vision: Shape curious minds who are ready for tomorrow.</li>
+            <li><i class="fas fa-building"></i> Facilities: Smart labs, study zones, sports courts, and art studios.</li>
+          </ul>
+        </div>
+        <div class="stats">
+          <div class="counter-card">
+            <div class="counter" data-target="1200">0</div>
+            <p>Students Enrolled</p>
+          </div>
+          <div class="counter-card">
+            <div class="counter" data-target="85">0</div>
+            <p>Expert Teachers</p>
+          </div>
+          <div class="counter-card">
+            <div class="counter" data-target="30">0</div>
+            <p>Available Courses</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="courses">
+      <div class="section-title">
+        <span>02</span>
+        <h2>Courses We Offer</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <i class="fas fa-flask fa-2x" style="color: var(--primary);"></i>
+          <h3>Science & Technology</h3>
+          <p>Hands-on experiments, coding labs, and guided science projects for curious learners.</p>
+        </article>
+        <article class="card">
+          <i class="fas fa-palette fa-2x" style="color: var(--primary);"></i>
+          <h3>Arts & Design</h3>
+          <p>Creative art classes that explore drawing, digital design, and storytelling.</p>
+        </article>
+        <article class="card">
+          <i class="fas fa-globe fa-2x" style="color: var(--primary);"></i>
+          <h3>Language & Communication</h3>
+          <p>Build strong writing, speaking, and collaboration skills through fun activities.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="section-title">
+        <span>03</span>
+        <h2>Achievements & Gallery</h2>
+      </div>
+      <div class="gallery">
+        <figure>
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Graduation ceremony" />
+          <figcaption>Academic Achievers</figcaption>
+        </figure>
+        <figure>
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80" alt="Students collaborating" />
+          <figcaption>Team Projects</figcaption>
+        </figure>
+        <figure>
+          <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=700&q=80" alt="School campus" />
+          <figcaption>School Community</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span>04</span>
+        <h2>Student Testimonials</h2>
+      </div>
+      <div class="testimonials">
+        <article class="testimonial">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <h4>"The teachers inspire me every day. The classes are fun and the support is amazing."</h4>
+          <p>- Maya, Grade 11</p>
+        </article>
+        <article class="testimonial">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <h4>"I love the creativity lab and science experiments. I feel prepared for the future."</h4>
+          <p>- Kian, Grade 9</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-title">
+        <span>05</span>
+        <h2>Contact Us</h2>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+          <button class="action-btn" type="submit">Send Message</button>
+        </form>
+        <aside class="contact-info">
+          <h3>Get in Touch</h3>
+          <p>We welcome questions from students, parents, and visitors. Reach out for admissions, events, or general information.</p>
+          <p><strong>Phone:</strong> (555) 123-4567</p>
+          <p><strong>Email:</strong> hello@blueridgeacademy.edu</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Blue Ridge Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Smooth active link highlighting
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Dark/Light mode toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+    });
+
+    // Animated slider cycling through messages
+    const sliderTrack = document.getElementById('sliderTrack');
+    let slideIndex = 0;
+    function showNextSlide() {
+      slideIndex = (slideIndex + 1) % sliderTrack.children.length;
+      sliderTrack.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+    setInterval(showNextSlide, 4500);
+
+    // Counter animation when section is visible
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    function animateCounters() {
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / speed);
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(document.querySelector('.stats'));
+
+    // Contact form validation
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const message = document.getElementById('message');
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+        alert('Please fill in all fields before submitting.');
+        return;
+      }
+      if (!emailPattern.test(email.value.trim())) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      // Reset the form and show success message
+      contactForm.reset();
+      alert('Thank you! Your message has been sent successfully.');
+    });
+  </script>
+</body>
+</html>
